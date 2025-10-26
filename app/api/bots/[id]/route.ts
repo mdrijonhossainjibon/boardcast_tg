@@ -5,12 +5,12 @@ import Bot from "@/models/Bot";
 // PUT - Update a bot
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+   context : any
 ) {
   try {
     await connectDB();
     const { name, token, active } = await request.json();
-    const { id } = params;
+    const  id   = await context.params.id;
 
     const bot = await Bot.findByIdAndUpdate(
       id,
@@ -46,11 +46,11 @@ export async function PUT(
 // DELETE - Delete a bot
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+   context : any
 ) {
   try {
     await connectDB();
-    const { id } = params;
+    const id = await context.params.id;
 
     const bot = await Bot.findByIdAndDelete(id);
 
